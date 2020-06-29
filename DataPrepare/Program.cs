@@ -12,10 +12,10 @@ using System.IO;
 /// вырезается вечерка (все что позже vecherkaTime)
 /// создается поддирректория NoNightData и туда под теми же именами
 /// файлы уже без вечерки перезаписываются
+/// ЗАМОРОЧКА с ТС ЛАБОМ, csv файл надо скопировать (содержимое) в чистый файл в нотепад++ и сохр как тхт,
+/// просто переименовать недостаточно
 /// =============================================
-/// вынести все из мейна в отдельный класс как положено (отрефакторить)
-/// добавить опциональную подготовку склейки для форвард теста (на выходе 2 файла,
-/// для оптимизации (более старые данные) и для проверки (последние данные)
+/// 
 /// </summary>
 
 namespace DataPrepare
@@ -25,7 +25,16 @@ namespace DataPrepare
         static string firstString = "<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>";
 
         // static string folderPath = @"C:\Users\Сергей\Desktop\test\";
-        static string folderPath = @"C:\Users\Sergei Levit\Desktop\Gold 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Gold 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Eu 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Sber 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Ri 15 min\";
+        static string folderPath = @"C:\Users\Sergei Levit\Desktop\Si 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Sber 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Ri 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Eu 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Si 5 min\";
+
 
         public static int vecherkaTime = 184500;
 
@@ -196,7 +205,7 @@ namespace DataPrepare
                 // Console.ReadKey ();
                 return allDataFromFile;
             }
-            else throw new Exception ( "Нот сач филе !!" );
+            else throw new Exception ( "Нот сач филе !! ))" );
         }
     }
 
