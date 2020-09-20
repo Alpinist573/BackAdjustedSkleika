@@ -25,15 +25,17 @@ namespace DataPrepare
         static string firstString = "<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>";
 
         // static string folderPath = @"C:\Users\Сергей\Desktop\test\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Gold 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Eu 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Sber 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Ri 15 min\";
-        static string folderPath = @"C:\Users\Sergei Levit\Desktop\Si 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Sber 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Ri 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Eu 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Desktop\Si 5 min\";
+        static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Gold 15 min\";
+
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Br 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 15 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 5 min\";
+        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 5 min\";
 
 
         public static int vecherkaTime = 184500;

@@ -33,10 +33,10 @@ namespace DataPrepare
 
             DateTime.TryParseExact ( words[0] + words[1], pattern, null, System.Globalization.DateTimeStyles.None, out dt );
             onlyTime = int.Parse ( words[1] );
-            open = double.Parse(words[2]); // .Replace ( '.', ',' ) );
-            high = double.Parse(words[3]); // .Replace ( '.', ',' ) );
-            low = double.Parse(words[4]); // .Replace ( '.', ',' ) );
-            close = double.Parse(words[5]); // .Replace ( '.', ',' ) );
+            open = double.Parse(words[2].Replace ( '.', ',' ) );
+            high = double.Parse(words[3].Replace ( '.', ',' ) );
+            low = double.Parse(words[4].Replace ( '.', ',' ) );
+            close = double.Parse(words[5].Replace ( '.', ',' ) );
             volume = int.Parse ( words[6] );
 
         }
