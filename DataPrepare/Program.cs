@@ -24,20 +24,8 @@ namespace DataPrepare
     {
         static string firstString = "<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>";
 
-        // static string folderPath = @"C:\Users\Сергей\Desktop\test\";
-        static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Gold 15 min\";
-
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Br 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 15 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 5 min\";
-        // static string folderPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 5 min\";
-
-
+        static string resultPath = @"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\";
+        
         public static int vecherkaTime = 184500;
 
         public static int expirTime = 120000;
@@ -50,69 +38,92 @@ namespace DataPrepare
 
         static void Main ( string[] args )
         {
-            List<string> paths = new List<string>();
 
 
-            string[] files = Directory.GetFiles ( folderPath );
-            Contract[] contracts = new Contract[files.Length];
+          
 
-            for (int i = 0; i < files.Length; i++)
+            List<string> Paths = new List<string>();
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Gold 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Br 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 15 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Sber 5 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Ri 5 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Eu 5 min\");
+            Paths.Add(@"C:\Users\Sergei Levit\Documents\База\Биржа\Данные\Si 5 min\");
+
+            foreach (var folderPath in Paths)
             {
-                if (i == 0) contracts[i] = new Contract ( files[i], true );
-                else contracts[i] = new Contract ( files[i], contracts[i - 1].ExpirDate );
+                string[] tmpstr = folderPath.Split('\\');
+                string newFileName = tmpstr[tmpstr.Count() - 2];
+               
 
-            }
+                Console.WriteLine("=========================");
+                Console.WriteLine(newFileName);
 
-            // пихает в отдельную папку контракты без вечерок (отрезаны по экспир)
-            for (int i = 0; i < files.Length; i++)
-            {
-                listToFileWriter ( FileNameExtractor ( files[i] ), @"nonightdata\", contracts[i].NoNights () );
-            }
+                string[] files = Directory.GetFiles(folderPath);
+                Contract[] contracts = new Contract[files.Length];
 
-            // высчитывает adjustSize и суммированный adjustSize
-
-            for (int i = contracts.Length - 1; i >= 0; i--)
-            {
-                if (i == contracts.Length - 1) contracts[i].AdjustSize = 0;
-                else
+                for (int i = 0; i < files.Length; i++)
                 {
-                    contracts[i].AdjustSize = contracts[i + 1].PrevExpirClose - contracts[i].ExpirClose;
-                    contracts[i].SummAdjustSize = contracts[i + 1].SummAdjustSize + contracts[i].AdjustSize;
-                }
-            }
-            for (int i = 0; i < contracts.Length; i++)
-            {
-                Console.WriteLine ( "adjSize = {0}, summAdj = {1}", contracts[i].AdjustSize, contracts[i].SummAdjustSize );
-            }
+                    if (i == 0) contracts[i] = new Contract(files[i], true);
+                    else contracts[i] = new Contract(files[i], contracts[i - 1].ExpirDate);
 
-            // пихает в отдельную папку adjusted с вечеркой - один файл склейка
-            List<string> adj = new List<string> ();
-            // adj.Add ( firstString );
-            for (int i = 0; i < contracts.Length; i++)
-            {
-                List<string> ls = contracts[i].Ajust ();
-                foreach (var item in ls)
+                }
+
+                // пихает в отдельную папку контракты без вечерок (отрезаны по экспир)
+                for (int i = 0; i < files.Length; i++)
                 {
-                    adj.Add ( item );
+                    // listToFileWriter(FileNameExtractor(files[i]), @"nonightdata\", contracts[i].NoNights(), folderPath);
                 }
-            }
-            listToFileWriter ( "adjNights.csv", @"adjustWithNights\", adj );
 
+                // высчитывает adjustSize и суммированный adjustSize
 
-            adj.Clear ();
-            // adj.Add ( firstString );
-            for (int i = 0; i < contracts.Length; i++)
-            {
-                List<string> ls = contracts[i].AdjustNoNights ();
-                foreach (var item in ls)
+                for (int i = contracts.Length - 1; i >= 0; i--)
                 {
-                    adj.Add ( item );
+                    if (i == contracts.Length - 1) contracts[i].AdjustSize = 0;
+                    else
+                    {
+                        contracts[i].AdjustSize = contracts[i + 1].PrevExpirClose - contracts[i].ExpirClose;
+                        contracts[i].SummAdjustSize = contracts[i + 1].SummAdjustSize + contracts[i].AdjustSize;
+                    }
                 }
+                for (int i = 0; i < contracts.Length; i++)
+                {
+                    Console.WriteLine("adjSize = {0}, summAdj = {1}", contracts[i].AdjustSize, contracts[i].SummAdjustSize);
+                }
+
+                // пихает в отдельную папку adjusted с вечеркой - один файл склейка
+                List<string> adj = new List<string>();
+                // adj.Add ( firstString );
+                for (int i = 0; i < contracts.Length; i++)
+                {
+                    List<string> ls = contracts[i].Ajust();
+                    foreach (var item in ls)
+                    {
+                        adj.Add(item);
+                    }
+                }
+                listToFileOverWriter(newFileName +".txt", @"adjustWithNights\", adj, resultPath);
+
+                // пихает в отдельную папку adjusted без вечерки - один файл склейка
+                adj.Clear();
+                // adj.Add ( firstString );
+                for (int i = 0; i < contracts.Length; i++)
+                {
+                    List<string> ls = contracts[i].AdjustNoNights();
+                    foreach (var item in ls)
+                    {
+                        adj.Add(item);
+                    }
+                }
+                // listToFileWriter("adjNoNights.csv", @"adjustNoNights\", adj, folderPath);
+
+                Console.WriteLine("");
+                
             }
-            listToFileWriter ( "adjNoNights.csv", @"adjustNoNights\", adj );
-
-
-
             Console.ReadKey ();
 
 
@@ -125,12 +136,12 @@ namespace DataPrepare
             return new FileInfo ( fullPathwithName ).Name;
         }
 
-        // записывает List в созданный файл 
-        static void listToFileWriter ( string fileName, string newFolder, List<string> ls )
+        // записывает List в созданный файл, если такого файла еще нет
+        static void listToFileWriter ( string fileName, string newFolder, List<string> ls, string folderPath1 )
         {
 
-            Directory.CreateDirectory ( folderPath + newFolder );
-            string path = folderPath + newFolder + fileName;
+            Directory.CreateDirectory ( folderPath1 + newFolder );
+            string path = folderPath1 + newFolder + fileName;
 
             if (!File.Exists ( path ))
             {
@@ -147,6 +158,25 @@ namespace DataPrepare
             {
                 throw new Exception ( string.Format ( "Такой файл - {0} уже есть !!", fileName ) );
             }
+        }
+
+        // записывает List, если файл такой есть - перезаписывает
+        static void listToFileOverWriter(string fileName, string newFolder, List<string> ls, string folderPath1)
+        {
+
+            Directory.CreateDirectory(folderPath1 + newFolder);
+            string path = folderPath1 + newFolder + fileName;
+
+            
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine(firstString);
+                    for (int i = 0; i < ls.Count; i++)
+                    {
+                        sw.WriteLine(ls[i]);
+                    }
+                }
+           
         }
 
         // парсим строку из csv файла и выстаскиваем оттуда дату и время свечи, 
