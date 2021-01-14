@@ -50,6 +50,9 @@ namespace DataPrepare
 
         static void Main ( string[] args )
         {
+            List<string> paths = new List<string>();
+
+
             string[] files = Directory.GetFiles ( folderPath );
             Contract[] contracts = new Contract[files.Length];
 
@@ -107,6 +110,8 @@ namespace DataPrepare
                 }
             }
             listToFileWriter ( "adjNoNights.csv", @"adjustNoNights\", adj );
+
+
 
             Console.ReadKey ();
 
